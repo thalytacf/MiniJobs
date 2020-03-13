@@ -29,30 +29,57 @@ Segue exemplo abaixo:
 '''
 import random
 
+class Game:
 
-lista_cartas = ['2','3','4','5','6','7','8','9','J','Q','K','A']
-dicionario_valores = {'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':9,'9':9,'10':10,'J':10,'Q':10,'K':10,'A':11}
-qnt = 1
-valor = 0
-x = 0
-while(qnt>0):
-    virar_carta = int(input('Virar carta?(1-sim/0-não):'))
-    if virar_carta == 1:
-        choice = random.choice(lista_cartas)
-        print(choice)
+    def __init__(self):
+        self.list_cards = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
+        self.dict_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10,'K': 10, 'A': 11}
+        self.first_card = random.choice(self.list_cards)
 
-        for i in dicionario_valores:
+    def give_the_first_card(self):
+        print(f'Primeira carta: {self.first_card}')
+        return self.first_card
+
+
+    def rules(self):
+        for i in self.dict_values:
             if i == choice:
                 if i == 'A':
-                    if valor == 0:
-                        valor = valor + 11
-                    else:
-                        valor = valor + 1
+                    if self.first_card == 'J':
+                        amount = amount + 11
+                    if self.first_card == 'Q':
+                        amount = amount + 11
+                    if self.first_card == 'K':
+                        amount = amount + 11
+                    if self.first_card == 'A':
+                        amount = amount + 11
+                    print(f'Score:{amount}')
                 else:
-                    valor = valor + dicionario_valores[i]
-                print(f"Valor: {valor}")
-        x += 1
+                    amount = amount + 1
+            else:
+                amount = amount + self.dict_values[i]
+            print(f'Score Final:{amount}')
 
-    else:
-        qnt = qnt -1
-        print(f'Score:{valor}')
+
+class Play(Game):
+
+    def __init__(self):
+        self.game = Game()
+
+    def run_game(self):
+        self.game.give_the_first_card()
+        qnt = 1
+        while (qnt > 0):
+            turn_card = int(input('Virar carta?(1-sim/0-não):'))
+            if turn_card == 1:
+                amount = 0
+                choice = random.choice(self.game.list_cards)
+                print(choice)
+                self.game.rules()
+            else:
+                qnt = qnt - 1
+        print('passou while')
+
+
+play = Play()
+play.run_game()
